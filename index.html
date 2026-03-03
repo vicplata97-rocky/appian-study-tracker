@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Appian Senior Dev — Study Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1117;
+  --surface:#181c27;
+  --surface2:#1e2336;
+  --border:#2a3050;
+  --accent:#4f6ef7;
+  --accent2:#7c5cf7;
+  --green:#22c55e;
+  --yellow:#f59e0b;
+  --red:#ef4444;
+  --text:#e8eaf6;
+  --text2:#8b92b8;
+  --text3:#4a5180;
+  --card:#1a1f32;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,#0f1117 0%,#131829 50%,#0f1117 100%);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  position:sticky;top:0;z-index:100;
+}
+.header-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:18px;
+}
+.logo-icon{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.header-nav{display:flex;gap:6px;}
+.nav-btn{
+  padding:7px 16px;border-radius:8px;
+  font-size:13px;font-weight:500;
+  color:var(--text2);background:transparent;border:none;
+  cursor:pointer;transition:all .2s;text-decoration:none;
+  display:inline-flex;align-items:center;
+}
+.nav-btn:hover,.nav-btn.active{background:var(--surface2);color:var(--text);}
+
+/* ── HERO ── */
+.hero{
+  max-width:1200px;margin:0 auto;
+  padding:60px 32px 40px;
+  display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;
+}
+@media(max-width:768px){.hero{grid-template-columns:1fr;padding:32px 16px 24px;}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(79,110,247,0.12);border:1px solid rgba(79,110,247,0.3);
+  border-radius:20px;padding:6px 14px;margin-bottom:16px;
+  font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.5px;
+}
+.hero h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(28px,4vw,42px);font-weight:700;
+  line-height:1.2;margin-bottom:12px;
+  background:linear-gradient(135deg,#fff 30%,#8b92b8);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero p{font-size:15px;color:var(--text2);line-height:1.7;max-width:540px;margin-bottom:28px;}
+
+/* Overall progress card */
+.progress-overview{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:28px;min-width:280px;
+}
+.prog-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:16px;}
+.big-percent{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:52px;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:4px;
+}
+.prog-sub{font-size:13px;color:var(--text2);margin-bottom:20px;}
+.prog-bar-wrap{background:var(--surface2);border-radius:99px;height:8px;overflow:hidden;margin-bottom:20px;}
+.prog-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .6s ease;}
+
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.mini-stat{
+  background:var(--surface2);border-radius:10px;padding:12px;text-align:center;
+}
+.mini-stat-val{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;margin-bottom:2px;}
+.mini-stat-val.green{color:var(--green);}
+.mini-stat-val.yellow{color:var(--yellow);}
+.mini-stat-label{font-size:11px;color:var(--text3);}
+
+/* ── EXAM INFO BANNER ── */
+.exam-banner{
+  max-width:1200px;margin:0 auto 40px;padding:0 32px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;
+}
+@media(max-width:768px){.exam-banner{padding:0 16px;}}
+.exam-stat{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px;
+}
+.exam-stat-icon{font-size:24px;}
+.exam-stat-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin-bottom:2px;}
+.exam-stat-key{font-size:12px;color:var(--text3);}
+
+/* ── TABS ── */
+.tabs-section{max-width:1200px;margin:0 auto;padding:0 32px 80px;}
+@media(max-width:768px){.tabs-section{padding:0 16px 60px;}}
+.tab-bar{
+  display:flex;gap:4px;background:var(--surface);
+  border:1px solid var(--border);border-radius:12px;
+  padding:4px;margin-bottom:32px;overflow-x:auto;
+}
+.tab{
+  flex:1;min-width:fit-content;padding:10px 16px;border-radius:8px;
+  font-size:13px;font-weight:500;color:var(--text2);
+  background:none;border:none;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.tab.active{background:var(--surface2);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.tab:hover:not(.active){color:var(--text);}
+
+/* ── DOMAIN SECTION ── */
+.domain-header{
+  display:flex;align-items:center;gap:16px;margin-bottom:24px;
+  padding-bottom:20px;border-bottom:1px solid var(--border);
+}
+.domain-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.domain-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;margin-bottom:4px;}
+.domain-meta{font-size:13px;color:var(--text2);}
+.domain-weight{
+  margin-left:auto;
+  background:rgba(79,110,247,0.12);border:1px solid rgba(79,110,247,0.25);
+  border-radius:8px;padding:8px 14px;text-align:center;flex-shrink:0;
+}
+.weight-val{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--accent);}
+.weight-label{font-size:11px;color:var(--text3);}
+
+/* Topics grid */
+.topics-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:16px;margin-bottom:32px;
+}
+.topic-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:20px;
+  transition:border-color .2s,transform .2s;
+  cursor:pointer;
+}
+.topic-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.topic-card.done{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.03);}
+.topic-card.in-progress{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.03);}
+
+.topic-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.topic-checkbox{
+  width:22px;height:22px;border-radius:6px;
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+  cursor:pointer;transition:all .2s;
+  font-size:12px;
+}
+.topic-card.done .topic-checkbox{background:var(--green);border-color:var(--green);color:#fff;}
+.topic-card.in-progress .topic-checkbox{background:var(--yellow);border-color:var(--yellow);color:#fff;}
+.topic-name{font-size:15px;font-weight:500;line-height:1.4;}
+.topic-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px;}
+.topic-links{display:flex;flex-wrap:wrap;gap:8px;}
+.topic-link{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:6px;
+  font-size:11px;font-weight:500;letter-spacing:.3px;
+  background:rgba(79,110,247,0.1);color:var(--accent);
+  border:1px solid rgba(79,110,247,0.2);
+  text-decoration:none;transition:all .2s;
+}
+.topic-link:hover{background:rgba(79,110,247,0.2);}
+.topic-link.green-link{background:rgba(34,197,94,0.08);color:#4ade80;border-color:rgba(34,197,94,0.2);}
+.topic-link.green-link:hover{background:rgba(34,197,94,0.15);}
+.topic-link.purple-link{background:rgba(124,92,247,0.1);color:#a78bfa;border-color:rgba(124,92,247,0.2);}
+
+.topic-status-bar{
+  display:flex;gap:8px;margin-top:14px;border-top:1px solid var(--border);padding-top:12px;
+}
+.status-btn{
+  flex:1;padding:6px;border-radius:6px;font-size:11px;font-weight:500;
+  border:1px solid var(--border);background:none;color:var(--text3);
+  cursor:pointer;transition:all .2s;
+}
+.status-btn:hover{color:var(--text);}
+.status-btn.active-not-started{background:var(--surface2);color:var(--text2);border-color:var(--border);}
+.status-btn.active-in-progress{background:rgba(245,158,11,.15);color:var(--yellow);border-color:rgba(245,158,11,.3);}
+.status-btn.active-done{background:rgba(34,197,94,.15);color:var(--green);border-color:rgba(34,197,94,.3);}
+
+/* Domain progress bar */
+.domain-progress{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:20px;margin-bottom:32px;
+}
+.dp-header{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;color:var(--text2);}
+.dp-bar{background:var(--surface2);border-radius:99px;height:6px;overflow:hidden;}
+.dp-fill{height:100%;border-radius:99px;transition:width .5s ease;}
+
+/* ── STUDY PLAN TAB ── */
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+.week-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:24px;
+}
+.week-label{
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;
+}
+.week-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:16px;}
+.week-items{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.week-item{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--text2);
+}
+.week-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.week-hours{
+  margin-top:16px;padding-top:16px;border-top:1px solid var(--border);
+  font-size:12px;color:var(--text3);display:flex;align-items:center;gap:6px;
+}
+
+/* ── RESOURCES TAB ── */
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.resource-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+  text-decoration:none;display:block;
+  transition:border-color .2s,transform .2s;
+}
+.resource-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.resource-type{
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  font-weight:600;margin-bottom:10px;display:inline-block;
+  padding:3px 8px;border-radius:4px;
+}
+.type-official{background:rgba(79,110,247,.15);color:var(--accent);}
+.type-practice{background:rgba(34,197,94,.12);color:#4ade80;}
+.type-video{background:rgba(239,68,68,.12);color:#f87171;}
+.type-community{background:rgba(245,158,11,.12);color:#fbbf24;}
+.resource-name{font-size:15px;font-weight:500;margin-bottom:6px;color:var(--text);}
+.resource-desc{font-size:13px;color:var(--text2);line-height:1.5;}
+
+/* ── TIPS TAB ── */
+.tips-list{display:flex;flex-direction:column;gap:16px;max-width:800px;}
+.tip-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:24px;
+  display:flex;gap:16px;align-items:flex-start;
+}
+.tip-num{
+  width:32px;height:32px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+}
+.tip-title{font-weight:600;margin-bottom:6px;}
+.tip-desc{font-size:14px;color:var(--text2);line-height:1.7;}
+
+/* hidden tabs */
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🧠</div>
+      Appian Senior Cert
+    </div>
+    <nav class="header-nav">
+      <a class="nav-btn active" href="#" onclick="switchTab('topics',this)">Topics</a>
+      <a class="nav-btn" href="#" onclick="switchTab('plan',this)">Study Plan</a>
+      <a class="nav-btn" href="#" onclick="switchTab('resources',this)">Resources</a>
+      <a class="nav-btn" href="#" onclick="switchTab('tips',this)">Exam Tips</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-badge">🎯 Appian Certified Senior Developer</div>
+    <h1>Your Study<br/>Command Center</h1>
+    <p>Track your preparation across all exam domains, find official resources, and follow a structured week-by-week plan to pass with confidence.</p>
+  </div>
+  <div class="progress-overview">
+    <div class="prog-title">Overall Progress</div>
+    <div class="big-percent" id="overall-pct">0%</div>
+    <div class="prog-sub" id="overall-sub">0 of 28 topics completed</div>
+    <div class="prog-bar-wrap"><div class="prog-bar-fill" id="overall-bar" style="width:0%"></div></div>
+    <div class="mini-stats">
+      <div class="mini-stat"><div class="mini-stat-val green" id="stat-done">0</div><div class="mini-stat-label">Completed</div></div>
+      <div class="mini-stat"><div class="mini-stat-val yellow" id="stat-wip">0</div><div class="mini-stat-label">In Progress</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAM BANNER -->
+<div class="exam-banner">
+  <div class="exam-stat"><span class="exam-stat-icon">⏱️</span><div><div class="exam-stat-val">90 min</div><div class="exam-stat-key">Exam Duration</div></div></div>
+  <div class="exam-stat"><span class="exam-stat-icon">❓</span><div><div class="exam-stat-val">~60 Qs</div><div class="exam-stat-key">Questions</div></div></div>
+  <div class="exam-stat"><span class="exam-stat-icon">✅</span><div><div class="exam-stat-val">70%</div><div class="exam-stat-key">Passing Score</div></div></div>
+  <div class="exam-stat"><span class="exam-stat-icon">🏆</span><div><div class="exam-stat-val">2 Years</div><div class="exam-stat-key">Validity</div></div></div>
+  <div class="exam-stat"><span class="exam-stat-icon">📋</span><div><div class="exam-stat-val">MCQ</div><div class="exam-stat-key">Question Type</div></div></div>
+</div>
+
+<!-- TABS SECTION -->
+<div class="tabs-section">
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('topics',this)">📚 Topics by Domain</button>
+    <button class="tab" onclick="switchTab('plan',this)">📅 Study Plan</button>
+    <button class="tab" onclick="switchTab('resources',this)">🔗 Resources</button>
+    <button class="tab" onclick="switchTab('tips',this)">💡 Exam Tips</button>
+  </div>
+
+  <!-- ── TOPICS TAB ── -->
+  <div class="tab-content active" id="tab-topics">
+
+    <!-- DOMAIN 1 -->
+    <div class="domain-header">
+      <div class="domain-icon" style="background:rgba(79,110,247,.15)">🏗️</div>
+      <div>
+        <div class="domain-title">Application Architecture & Design</div>
+        <div class="domain-meta">Design patterns, best practices, environment management</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~20%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d1-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d1-bar" style="width:0%;background:linear-gradient(90deg,#4f6ef7,#7c5cf7)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-1">
+      <div class="topic-card" data-id="d1t1" data-domain="1">
+        <div class="topic-top">
+          <div class="topic-checkbox">✓</div>
+          <div class="topic-name">Appian Architecture Overview</div>
+        </div>
+        <div class="topic-desc">Understand Appian's multi-layer architecture: execution, web, data, and AI layers. Know how components interact and deployment topologies.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Appian_Architecture.html" target="_blank">📖 Docs</a>
+          <a class="topic-link green-link" href="https://academy.appian.com" target="_blank">🎓 Academy</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d1t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d1t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d1t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d1t2" data-domain="1">
+        <div class="topic-top">
+          <div class="topic-checkbox">✓</div>
+          <div class="topic-name">Application Object Types & Relationships</div>
+        </div>
+        <div class="topic-desc">Master all object types (process models, interfaces, expressions, decisions, constants, record types) and how they reference each other.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/application-objects.html" target="_blank">📖 Docs</a>
+          <a class="topic-link purple-link" href="https://community.appian.com" target="_blank">👥 Community</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d1t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d1t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d1t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d1t3" data-domain="1">
+        <div class="topic-top">
+          <div class="topic-checkbox">✓</div>
+          <div class="topic-name">Design Patterns & Reusability</div>
+        </div>
+        <div class="topic-desc">Sub-processes, shared expression rules, component reuse strategies, package structure, and dependency management. Know when to use each pattern.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Appian_Best_Practices.html" target="_blank">📖 Best Practices</a>
+          <a class="topic-link green-link" href="https://academy.appian.com" target="_blank">🎓 Academy</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d1t3','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d1t3','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d1t3','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d1t4" data-domain="1">
+        <div class="topic-top">
+          <div class="topic-checkbox">✓</div>
+          <div class="topic-name">Environment Management & Deployment</div>
+        </div>
+        <div class="topic-desc">DevOps in Appian: comparing and deploying packages, environment variables, deployment pipelines, and release management strategies.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Deploying_to_Appian_Cloud.html" target="_blank">📖 Docs</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Appian_DevOps.html" target="_blank">🔧 DevOps</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d1t4','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d1t4','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d1t4','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 2 -->
+    <div class="domain-header" style="margin-top:48px">
+      <div class="domain-icon" style="background:rgba(34,197,94,.12)">⚙️</div>
+      <div>
+        <div class="domain-title">Process Modeling</div>
+        <div class="domain-meta">Workflows, smart services, exception handling, performance</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~22%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d2-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d2-bar" style="width:0%;background:linear-gradient(90deg,#22c55e,#16a34a)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-2">
+      <div class="topic-card" data-id="d2t1" data-domain="2">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Advanced Process Flows & Gateways</div></div>
+        <div class="topic-desc">XOR/AND/OR gateways, parallel flows, synchronization, event-based gateways, and complex routing logic. Know race conditions and deadlocks.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Process_Modeler.html" target="_blank">📖 Docs</a>
+          <a class="topic-link green-link" href="https://academy.appian.com" target="_blank">🎓 Academy</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d2t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d2t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d2t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d2t2" data-domain="2">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Smart Services & Integrations in Process</div></div>
+        <div class="topic-desc">All system smart services (email, document, user management, social), when to use them vs. integration objects, and error handling patterns.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Smart_Services.html" target="_blank">📖 Smart Services</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Integrations_in_Appian.html" target="_blank">🔗 Integrations</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d2t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d2t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d2t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d2t3" data-domain="2">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Exception Handling & Error Management</div></div>
+        <div class="topic-desc">Process exception flows, handling integration failures, retry logic, alerting process owners, and building resilient processes that don't silently fail.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Process_Exception_Flows.html" target="_blank">📖 Exception Flows</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d2t3','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d2t3','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d2t3','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d2t4" data-domain="2">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Process Performance & Optimization</div></div>
+        <div class="topic-desc">Identifying bottlenecks, using process analytics, optimizing task assignments, archiving, and monitoring tools. SLA management and escalations.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Process_Performance.html" target="_blank">📖 Performance</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/SLAs.html" target="_blank">⏱️ SLAs</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d2t4','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d2t4','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d2t4','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d2t5" data-domain="2">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Timers, Events & Scheduled Processes</div></div>
+        <div class="topic-desc">Timer events, message events, signal events, scheduled process models, and building event-driven architectures in Appian.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Timer_Events.html" target="_blank">📖 Timer Events</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Scheduled_Processes.html" target="_blank">📅 Scheduled</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d2t5','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d2t5','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d2t5','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 3 -->
+    <div class="domain-header" style="margin-top:48px">
+      <div class="domain-icon" style="background:rgba(245,158,11,.12)">🗄️</div>
+      <div>
+        <div class="domain-title">Data Management & Records</div>
+        <div class="domain-meta">Data types, record types, queries, CDTs, databases</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~18%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d3-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d3-bar" style="width:0%;background:linear-gradient(90deg,#f59e0b,#d97706)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-3">
+      <div class="topic-card" data-id="d3t1" data-domain="3">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Custom Data Types (CDTs)</div></div>
+        <div class="topic-desc">Designing CDTs, nested types, type hierarchies, and efficient data modeling. Know trade-offs between CDTs and Database-backed entities.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Custom_Data_Types.html" target="_blank">📖 CDTs</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d3t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d3t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d3t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d3t2" data-domain="3">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Record Types & Record-Backed Data</div></div>
+        <div class="topic-desc">Creating record types from database tables, process models, and web APIs. Record actions, related records, record views, and record-level security.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/record-type-object.html" target="_blank">📖 Record Types</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/record-security.html" target="_blank">🔒 Record Security</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d3t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d3t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d3t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d3t3" data-domain="3">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Queries: a!queryEntity & a!queryRecordType</div></div>
+        <div class="topic-desc">Building efficient queries, filters, aggregations, paging, and sorting. Know query limits and how to avoid full table scans. Selection vs aggregation.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Query_Rules.html" target="_blank">📖 Query Rules</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/a!queryRecordType.html" target="_blank">🔍 a!queryRecordType</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d3t3','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d3t3','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d3t3','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d3t4" data-domain="3">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Data Store Entities & Database Design</div></div>
+        <div class="topic-desc">Designing Data Store Entities, relationships, indexing for performance, and using Appian's ORM layer. Synced vs. unsynced record types.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Data_Store.html" target="_blank">📖 Data Store</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/sync-records.html" target="_blank">🔄 Record Sync</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d3t4','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d3t4','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d3t4','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 4 -->
+    <div class="domain-header" style="margin-top:48px">
+      <div class="domain-icon" style="background:rgba(236,72,153,.12)">🎨</div>
+      <div>
+        <div class="domain-title">Interface Design & SAIL</div>
+        <div class="domain-meta">UI components, patterns, UX, dynamic interfaces</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~20%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d4-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d4-bar" style="width:0%;background:linear-gradient(90deg,#ec4899,#db2777)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-4">
+      <div class="topic-card" data-id="d4t1" data-domain="4">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">SAIL Components & Layout</div></div>
+        <div class="topic-desc">All SAIL components: forms, grids, charts, pickers, rich text, billboards, cards. Layout components and responsive design principles.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/SAIL_Design_System.html" target="_blank">📖 SAIL Docs</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Interface_Design_Best_Practices.html" target="_blank">🎨 Best Practices</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d4t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d4t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d4t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d4t2" data-domain="4">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Dynamic Interfaces & Local Variables</div></div>
+        <div class="topic-desc">Using local!variables, a!localVariables(), refresh variables, saveInto patterns, and building highly dynamic, reactive UIs without page reloads.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Local_Variables.html" target="_blank">📖 Local Variables</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Refresh_Behavior.html" target="_blank">🔄 Refresh</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d4t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d4t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d4t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d4t3" data-domain="4">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Form Validation & User Input</div></div>
+        <div class="topic-desc">Client-side and server-side validation, required fields, custom validation messages, a!isNotNullOrEmpty, submit validations, and multi-step forms.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Validation.html" target="_blank">📖 Validation</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d4t3','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d4t3','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d4t3','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d4t4" data-domain="4">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Grids, Reports & Embedded Interfaces</div></div>
+        <div class="topic-desc">Editable grids, inline editing, lazy loading, record grids, embedding interfaces inside process forms, and custom report building patterns.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Grids.html" target="_blank">📖 Grids</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Reports.html" target="_blank">📊 Reports</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d4t4','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d4t4','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d4t4','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d4t5" data-domain="4">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Component Plug-ins & Custom Components</div></div>
+        <div class="topic-desc">Using Appian plug-in components, AppMarket components, and when to use them. Understanding limitations vs. native SAIL components.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Custom_Components.html" target="_blank">📖 Custom Components</a>
+          <a class="topic-link purple-link" href="https://community.appian.com/b/appmarket" target="_blank">🏪 AppMarket</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d4t5','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d4t5','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d4t5','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 5 -->
+    <div class="domain-header" style="margin-top:48px">
+      <div class="domain-icon" style="background:rgba(6,182,212,.12)">🔗</div>
+      <div>
+        <div class="domain-title">Integrations & Connected Systems</div>
+        <div class="domain-meta">REST, SOAP, HTTP, OAuth, external data</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~12%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d5-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d5-bar" style="width:0%;background:linear-gradient(90deg,#06b6d4,#0891b2)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-5">
+      <div class="topic-card" data-id="d5t1" data-domain="5">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Connected Systems & HTTP Integrations</div></div>
+        <div class="topic-desc">Building HTTP connected systems, REST integration objects, authentication methods (Basic, API Key, OAuth 2.0), and handling responses/errors.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Connected_System.html" target="_blank">📖 Connected Systems</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/http-connected-system.html" target="_blank">🌐 HTTP</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d5t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d5t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d5t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d5t2" data-domain="5">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Appian Web APIs (Inbound)</div></div>
+        <div class="topic-desc">Exposing Appian functionality via Web API objects, authentication options, request/response handling, and securing your APIs.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Web_API.html" target="_blank">📖 Web APIs</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d5t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d5t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d5t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d5t3" data-domain="5">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Robotic Process Automation (RPA)</div></div>
+        <div class="topic-desc">Appian RPA concepts, bot configuration, attended vs unattended automation, and integrating RPA bots into process models.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Appian_RPA.html" target="_blank">📖 RPA Docs</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d5t3','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d5t3','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d5t3','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 6 -->
+    <div class="domain-header" style="margin-top:48px">
+      <div class="domain-icon" style="background:rgba(239,68,68,.12)">🔒</div>
+      <div>
+        <div class="domain-title">Security & Governance</div>
+        <div class="domain-meta">Groups, permissions, row-level security, audit</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~8%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d6-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d6-bar" style="width:0%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-6">
+      <div class="topic-card" data-id="d6t1" data-domain="6">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Groups, Roles & Object Security</div></div>
+        <div class="topic-desc">Group types (basic, personal, role), object-level permissions, inheritance, and designing a scalable security model. Viewer/Editor/Administrator roles.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Groups.html" target="_blank">📖 Groups</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Security.html" target="_blank">🔐 Security</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d6t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d6t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d6t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d6t2" data-domain="6">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Row-Level & Record-Level Security</div></div>
+        <div class="topic-desc">Implementing row-level security on data store entities, record type security rules, and ensuring data is only visible to the right users.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/record-security.html" target="_blank">📖 Record Security</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d6t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d6t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d6t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d6t3" data-domain="6">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">SAML, SSO & Authentication</div></div>
+        <div class="topic-desc">SAML 2.0 configuration, SSO setup, Appian's authentication architecture, and integrating with enterprise identity providers.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/SAML.html" target="_blank">📖 SAML</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Single_Sign-On.html" target="_blank">🔑 SSO</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d6t3','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d6t3','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d6t3','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 7 -->
+    <div class="domain-header" style="margin-top:48px">
+      <div class="domain-icon" style="background:rgba(124,92,247,.12)">🤖</div>
+      <div>
+        <div class="domain-title">AI & Process Intelligence</div>
+        <div class="domain-meta">Appian AI, document extraction, process mining</div>
+      </div>
+      <div class="domain-weight"><div class="weight-val">~5%</div><div class="weight-label">Exam Weight</div></div>
+    </div>
+    <div class="domain-progress">
+      <div class="dp-header"><span>Domain Progress</span><span id="d7-pct">0%</span></div>
+      <div class="dp-bar"><div class="dp-fill" id="d7-bar" style="width:0%;background:linear-gradient(90deg,#7c5cf7,#6d28d9)"></div></div>
+    </div>
+    <div class="topics-grid" id="domain-7">
+      <div class="topic-card" data-id="d7t1" data-domain="7">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Appian AI & Document Processing</div></div>
+        <div class="topic-desc">Document extraction models, classification, AI Skills, configuring and using Appian AI in process flows, and intelligent document processing patterns.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Appian_AI.html" target="_blank">📖 Appian AI</a>
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Document_Extraction.html" target="_blank">📄 Doc Extraction</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d7t1','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d7t1','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d7t1','done',this)">Done ✓</button>
+        </div>
+      </div>
+      <div class="topic-card" data-id="d7t2" data-domain="7">
+        <div class="topic-top"><div class="topic-checkbox">✓</div><div class="topic-name">Process Mining & Analytics</div></div>
+        <div class="topic-desc">Process Mining concepts in Appian, process performance dashboards, identifying inefficiencies, and using data-driven insights to optimize workflows.</div>
+        <div class="topic-links">
+          <a class="topic-link" href="https://docs.appian.com/suite/help/latest/Process_Mining.html" target="_blank">📖 Process Mining</a>
+        </div>
+        <div class="topic-status-bar">
+          <button class="status-btn active-not-started" onclick="setStatus('d7t2','not-started',this)">Not Started</button>
+          <button class="status-btn" onclick="setStatus('d7t2','in-progress',this)">In Progress</button>
+          <button class="status-btn" onclick="setStatus('d7t2','done',this)">Done ✓</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-topics -->
+
+  <!-- ── STUDY PLAN TAB ── -->
+  <div class="tab-content" id="tab-plan">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">8-Week Study Plan</h2>
+    <p style="color:var(--text2);font-size:14px;margin-bottom:32px;">~2–3 hours/day · Adjust pace based on your existing Appian experience.</p>
+    <div class="plan-grid">
+      <div class="week-card">
+        <div class="week-label">Week 1</div>
+        <div class="week-title">Architecture & Foundations</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#4f6ef7"></span>Appian architecture deep dive</li>
+          <li class="week-item"><span class="week-dot" style="background:#4f6ef7"></span>Object types & relationships</li>
+          <li class="week-item"><span class="week-dot" style="background:#4f6ef7"></span>Environment & deployment basics</li>
+          <li class="week-item"><span class="week-dot" style="background:#4f6ef7"></span>Design pattern review</li>
+        </ul>
+        <div class="week-hours">⏱️ ~12–15 hrs · Academy: Appian Fundamentals</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 2</div>
+        <div class="week-title">Process Modeling — Core</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Advanced gateways & flows</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>All system smart services</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Exception flows & error handling</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Hands-on process building</li>
+        </ul>
+        <div class="week-hours">⏱️ ~14 hrs · Build 3 complex processes</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 3</div>
+        <div class="week-title">Process Modeling — Advanced</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Timers, events & messaging</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Scheduled processes</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Performance & SLAs</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Process analytics review</li>
+        </ul>
+        <div class="week-hours">⏱️ ~12 hrs · Review process performance tools</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 4</div>
+        <div class="week-title">Data Management & Records</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#f59e0b"></span>CDTs & data modeling</li>
+          <li class="week-item"><span class="week-dot" style="background:#f59e0b"></span>Record types (synced & unsynced)</li>
+          <li class="week-item"><span class="week-dot" style="background:#f59e0b"></span>a!queryEntity & a!queryRecordType</li>
+          <li class="week-item"><span class="week-dot" style="background:#f59e0b"></span>Data Store Entities & indexing</li>
+        </ul>
+        <div class="week-hours">⏱️ ~14 hrs · Build data model + queries</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 5</div>
+        <div class="week-title">Interface Design & SAIL</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#ec4899"></span>All SAIL components deep dive</li>
+          <li class="week-item"><span class="week-dot" style="background:#ec4899"></span>Local variables & refresh</li>
+          <li class="week-item"><span class="week-dot" style="background:#ec4899"></span>Validation & multi-step forms</li>
+          <li class="week-item"><span class="week-dot" style="background:#ec4899"></span>Grids & record interfaces</li>
+        </ul>
+        <div class="week-hours">⏱️ ~15 hrs · Build 5 complex interfaces</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 6</div>
+        <div class="week-title">Integrations & Security</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#06b6d4"></span>HTTP connected systems</li>
+          <li class="week-item"><span class="week-dot" style="background:#06b6d4"></span>Web APIs (inbound)</li>
+          <li class="week-item"><span class="week-dot" style="background:#ef4444"></span>Groups & object security</li>
+          <li class="week-item"><span class="week-dot" style="background:#ef4444"></span>Row-level & record security</li>
+        </ul>
+        <div class="week-hours">⏱️ ~12 hrs · Build an integration + secure app</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 7</div>
+        <div class="week-title">AI, RPA & Practice Tests</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#7c5cf7"></span>Appian AI & Document Extraction</li>
+          <li class="week-item"><span class="week-dot" style="background:#7c5cf7"></span>Process Mining basics</li>
+          <li class="week-item"><span class="week-dot" style="background:#7c5cf7"></span>RPA integration patterns</li>
+          <li class="week-item"><span class="week-dot" style="background:#f59e0b"></span>First full practice exam</li>
+        </ul>
+        <div class="week-hours">⏱️ ~12 hrs · Score practice exam & review gaps</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Week 8</div>
+        <div class="week-title">Review & Final Prep</div>
+        <ul class="week-items">
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Review weak areas from practice exam</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Second practice exam</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Flash card review of all domains</li>
+          <li class="week-item"><span class="week-dot" style="background:#22c55e"></span>Rest day before exam 🎯</li>
+        </ul>
+        <div class="week-hours">⏱️ ~10 hrs · You're ready. Go get it. 💪</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESOURCES TAB ── -->
+  <div class="tab-content" id="tab-resources">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Study Resources</h2>
+    <p style="color:var(--text2);font-size:14px;margin-bottom:32px;">Official docs, academy courses, and community links curated for the Senior Dev exam.</p>
+    <div class="resources-grid">
+      <a class="resource-card" href="https://academy.appian.com" target="_blank">
+        <span class="resource-type type-official">✦ Official</span>
+        <div class="resource-name">Appian Academy</div>
+        <div class="resource-desc">The primary learning platform. Complete the "Senior Developer" learning path and all prerequisite courses.</div>
+      </a>
+      <a class="resource-card" href="https://docs.appian.com/suite/help/latest/" target="_blank">
+        <span class="resource-type type-official">✦ Official</span>
+        <div class="resource-name">Appian Documentation</div>
+        <div class="resource-desc">Full product docs. Bookmark and read every page related to your weak domains. Most exam questions come from here.</div>
+      </a>
+      <a class="resource-card" href="https://community.appian.com" target="_blank">
+        <span class="resource-type type-community">👥 Community</span>
+        <div class="resource-name">Appian Community</div>
+        <div class="resource-desc">Discussion forums, exam experience posts, and tips from others who've passed. Search "Senior Developer exam" for real test experiences.</div>
+      </a>
+      <a class="resource-card" href="https://community.appian.com/b/appmarket" target="_blank">
+        <span class="resource-type type-community">👥 Community</span>
+        <div class="resource-name">AppMarket</div>
+        <div class="resource-desc">Browse community-built plug-ins and components. Understanding what's available helps with exam questions about extending Appian.</div>
+      </a>
+      <a class="resource-card" href="https://docs.appian.com/suite/help/latest/Appian_Best_Practices.html" target="_blank">
+        <span class="resource-type type-official">✦ Official</span>
+        <div class="resource-name">Best Practices Guide</div>
+        <div class="resource-desc">Critical reading. Many Senior Dev exam questions test knowledge of Appian's opinionated best practices — not just "can you do it" but "should you."</div>
+      </a>
+      <a class="resource-card" href="https://docs.appian.com/suite/help/latest/Expression_Rules.html" target="_blank">
+        <span class="resource-type type-official">✦ Official</span>
+        <div class="resource-name">Expression Language Reference</div>
+        <div class="resource-desc">Complete reference for all Appian functions. Know the commonly tested ones: fn!query, a!localVariables, a!forEach, a!httpQuery, and data manipulation functions.</div>
+      </a>
+      <a class="resource-card" href="https://www.youtube.com/@AppianCommunity" target="_blank">
+        <span class="resource-type type-video">▶ Video</span>
+        <div class="resource-name">Appian YouTube Channel</div>
+        <div class="resource-desc">Official video tutorials, webinars, and deep dives on key platform features. Great for visual learners on complex topics like process modeling.</div>
+      </a>
+      <a class="resource-card" href="https://docs.appian.com/suite/help/latest/Appian_Release_Notes.html" target="_blank">
+        <span class="resource-type type-official">✦ Official</span>
+        <div class="resource-name">Release Notes</div>
+        <div class="resource-desc">Stay current. Exam questions may reflect newer features. Review the last 2–3 release notes to know what's recently changed.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── TIPS TAB ── -->
+  <div class="tab-content" id="tab-tips">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Exam Tips & Strategy</h2>
+    <p style="color:var(--text2);font-size:14px;margin-bottom:32px;">Hard-won advice to help you pass on your first attempt.</p>
+    <div class="tips-list">
+      <div class="tip-card"><div class="tip-num">1</div><div><div class="tip-title">Read the Official Exam Blueprint First</div><div class="tip-desc">Before studying anything, download Appian's official Senior Developer Exam Guide from Appian Academy. It lists exact domain weights — don't over-study a 5% topic at the expense of a 22% one.</div></div></div>
+      <div class="tip-card"><div class="tip-num">2</div><div><div class="tip-title">Build, Don't Just Read</div><div class="tip-desc">The Senior exam tests applied knowledge heavily. For every topic, actually build something in Appian. You'll remember a concept 10× better if you've debugged it in a real environment.</div></div></div>
+      <div class="tip-card"><div class="tip-num">3</div><div><div class="tip-title">Know Best Practices, Not Just Features</div><div class="tip-desc">Many questions ask "what is the BEST approach" — not just "is this possible." Read the Best Practices guide thoroughly. Appian has strong opinions about how things should be done.</div></div></div>
+      <div class="tip-card"><div class="tip-num">4</div><div><div class="tip-title">Master Expression Language Edge Cases</div><div class="tip-desc">Know how null handling works, the difference between fn!query and a!queryEntity, how a!localVariables refresh works, and common gotchas with list/array functions like a!forEach.</div></div></div>
+      <div class="tip-card"><div class="tip-num">5</div><div><div class="tip-title">Process Model Exception Flows Are Tested Heavily</div><div class="tip-desc">Exception handling, error propagation, and process recovery are consistently high on the exam. Know every type of exception flow and when to use each one.</div></div></div>
+      <div class="tip-card"><div class="tip-num">6</div><div><div class="tip-title">Take at Least 2 Practice Exams</div><div class="tip-desc">Use Appian Academy's practice assessments. After your first attempt, make a list of every question you got wrong and study only those topics before your second attempt.</div></div></div>
+      <div class="tip-card"><div class="tip-num">7</div><div><div class="tip-title">Security Model Questions = Easy Points</div><div class="tip-desc">Security questions tend to be straightforward if you understand groups, object permissions, and record-level security. This is low-hanging fruit — make sure you nail it.</div></div></div>
+      <div class="tip-card"><div class="tip-num">8</div><div><div class="tip-title">Time Management During the Exam</div><div class="tip-desc">~60 questions in 90 min = 1.5 min per question. Flag uncertain ones and move on. Don't spend 5 minutes on one question — come back to it. Eliminate obviously wrong answers first.</div></div></div>
+    </div>
+  </div>
+
+</div><!-- /tabs-section -->
+
+<script>
+// ── DATA ──
+const DOMAIN_COUNTS = {1:4, 2:5, 3:4, 4:5, 5:3, 6:3, 7:2};
+const TOTAL_TOPICS = Object.values(DOMAIN_COUNTS).reduce((a,b)=>a+b,0);
+let progress = JSON.parse(localStorage.getItem('appian-progress') || '{}');
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  applyAllStatuses();
+  updateAllStats();
+});
+
+function applyAllStatuses() {
+  Object.keys(progress).forEach(id => {
+    const card = document.querySelector(`[data-id="${id}"]`);
+    if (!card) return;
+    const status = progress[id];
+    card.className = card.className.replace(/\b(done|in-progress)\b/g,'').trim();
+    if (status === 'done') card.classList.add('done');
+    if (status === 'in-progress') card.classList.add('in-progress');
+    const btns = card.querySelectorAll('.status-btn');
+    btns.forEach(b => {
+      b.className = 'status-btn';
+      const val = b.textContent.trim().toLowerCase().includes('progress') ? 'in-progress'
+                : b.textContent.trim().toLowerCase().includes('done') ? 'done' : 'not-started';
+      if (val === status || (status === undefined && val === 'not-started')) {
+        b.classList.add(`active-${val === 'not-started' ? 'not-started' : val === 'in-progress' ? 'in-progress' : 'done'}`);
+      }
+    });
+    const checkbox = card.querySelector('.topic-checkbox');
+    if (checkbox) {
+      checkbox.textContent = status === 'done' ? '✓' : status === 'in-progress' ? '…' : '✓';
+    }
+  });
+}
+
+function setStatus(id, status, btn) {
+  progress[id] = status;
+  localStorage.setItem('appian-progress', JSON.stringify(progress));
+  const card = document.querySelector(`[data-id="${id}"]`);
+  if (!card) return;
+  card.className = card.className.replace(/\b(done|in-progress)\b/g,'').trim();
+  if (status === 'done') card.classList.add('done');
+  if (status === 'in-progress') card.classList.add('in-progress');
+  const btns = card.querySelectorAll('.status-btn');
+  btns.forEach(b => {
+    b.className = 'status-btn';
+  });
+  btn.classList.add(`active-${status === 'not-started' ? 'not-started' : status === 'in-progress' ? 'in-progress' : 'done'}`);
+  const checkbox = card.querySelector('.topic-checkbox');
+  if (checkbox) checkbox.textContent = status === 'done' ? '✓' : status === 'in-progress' ? '…' : '✓';
+  updateAllStats();
+}
+
+function updateAllStats() {
+  let totalDone = 0, totalWip = 0;
+  for (let d = 1; d <= 7; d++) {
+    let dDone = 0, dTotal = DOMAIN_COUNTS[d];
+    const cards = document.querySelectorAll(`[data-domain="${d}"]`);
+    cards.forEach(c => {
+      const id = c.dataset.id;
+      if (progress[id] === 'done') { dDone++; totalDone++; }
+      if (progress[id] === 'in-progress') totalWip++;
+    });
+    const pct = dTotal ? Math.round((dDone/dTotal)*100) : 0;
+    const bar = document.getElementById(`d${d}-bar`);
+    const pctEl = document.getElementById(`d${d}-pct`);
+    if (bar) bar.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+  }
+  const overallPct = Math.round((totalDone / TOTAL_TOPICS) * 100);
+  document.getElementById('overall-pct').textContent = overallPct + '%';
+  document.getElementById('overall-bar').style.width = overallPct + '%';
+  document.getElementById('overall-sub').textContent = `${totalDone} of ${TOTAL_TOPICS} topics completed`;
+  document.getElementById('stat-done').textContent = totalDone;
+  document.getElementById('stat-wip').textContent = totalWip;
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab, .nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  return false;
+}
+</script>
+</body>
+</html>
